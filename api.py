@@ -100,6 +100,12 @@ Ton rôle :
 - expliquer oralement pourquoi cet élément est pertinent ;
 - rester court, clair et rassurant.
 
+Réponds uniquement et obligatoirement en JSON dans le format suivant, sans markdown :
+{{
+"message": "réponse courte à lire à voix haute",
+  "target_id": "id de l'élément le plus pertinent ou null"
+}}
+
 Demande de l'utilisateur :
 "{request.user_request}"
 
@@ -114,16 +120,12 @@ Règles :
 - Ne parle pas d'interface visuelle.
 - Réponds comme si tu parlais à une personne aveugle.
 
-Réponds uniquement en JSON valide, sans markdown :
-{{
-  "target_id": "id de l'élément le plus pertinent ou null",
-  "message": "réponse courte à lire à voix haute"
-}}
+
 """
 
     body = {
         "prompt": f"<s>[INST] {prompt} [/INST]",
-        "max_tokens": 250,
+        "max_tokens": 500,
         "temperature": 0.1,
     }
 
