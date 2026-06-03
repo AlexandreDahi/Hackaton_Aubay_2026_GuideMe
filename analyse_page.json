@@ -1,0 +1,658 @@
+{
+  "boutons": [
+    [
+      "Accessibilité",
+      "Lien vers : javascript:void(0);"
+    ],
+    [
+      "Liens soulignés",
+      "Lien vers : https://aubay.com/#"
+    ],
+    [
+      "Police lisible",
+      "Lien vers : https://aubay.com/#"
+    ],
+    [
+      "Réinitialiser",
+      "Lien vers : https://aubay.com/#"
+    ],
+    [
+      "Aller au contenu principal",
+      "Lien vers : https://aubay.com/#main_content_aubay"
+    ],
+    [
+      "Contacts",
+      "Lien vers : https://aubay.com/#contacts"
+    ],
+    [
+      "Retour Accueil Aubay",
+      "Lien vers : https://aubay.com/"
+    ],
+    [
+      "Découvrir Aubay▼",
+      "—"
+    ],
+    [
+      "Accueil",
+      "Lien vers : https://aubay.com/"
+    ],
+    [
+      "Qui sommes nous ?",
+      "Lien vers : https://aubay.com/home-aubay/#main_content_aubay"
+    ],
+    [
+      "Nos collaborateurs",
+      "Lien vers : https://aubay.com/home-aubay/#collaborateurs"
+    ],
+    [
+      "Notre expertise",
+      "Lien vers : https://aubay.com/home-aubay/#expertise"
+    ],
+    [
+      "Notre politique RSE",
+      "Lien vers : https://aubay.com/investisseurs/politique-rse/"
+    ],
+    [
+      "Rejoindre Aubay",
+      "Lien vers : https://aubay.com/carriere-accueil/"
+    ],
+    [
+      "Blog",
+      "Lien vers : https://blog.aubay.com/"
+    ],
+    [
+      "Investisseurs▼",
+      "—"
+    ],
+    [
+      "Panorama financier",
+      "Lien vers : https://aubay.com/investisseurs/"
+    ],
+    [
+      "1-Actionnariat",
+      "Lien vers : https://aubay.com/investisseurs/actionnariat/"
+    ],
+    [
+      "2-Agenda",
+      "Lien vers : https://aubay.com/investisseurs/agenda/"
+    ],
+    [
+      "3-Gouvernance",
+      "Lien vers : https://aubay.com/investisseurs/gouvernance/"
+    ],
+    [
+      "4- Politique RSE",
+      "Lien vers : https://aubay.com/investisseurs/politique-rse/"
+    ],
+    [
+      "5-Éthique / Anticorruption",
+      "Lien vers : https://aubay.com/investisseurs/ethique-anticorruption/"
+    ],
+    [
+      "6-Informations financières",
+      "Lien vers : https://aubay.com/investisseurs/informations-financieres/"
+    ],
+    [
+      "7-Assemblée générale",
+      "Lien vers : https://aubay.com/investisseurs/assemblee-generale/"
+    ],
+    [
+      "8-Communiqués financiers",
+      "Lien vers : https://aubay.com/investisseurs/communiques-financiers/"
+    ],
+    [
+      "9-Informations réglementées",
+      "Lien vers : https://aubay.com/investisseurs/informations-reglementees/"
+    ],
+    [
+      "10-Contacts investisseurs & mentions légales",
+      "Lien vers : https://aubay.com/investisseurs/contacts/"
+    ],
+    [
+      "Contacts",
+      "Lien vers : https://aubay.com/home-aubay/#contacts"
+    ],
+    [
+      "mainmenu",
+      "Lien vers : https://aubay.com/en/"
+    ],
+    [
+      "Découvrir Aubay",
+      "Lien vers : https://aubay.com/#"
+    ],
+    [
+      "Accueil",
+      "Lien vers : https://aubay.com/"
+    ],
+    [
+      "Qui sommes nous ?",
+      "Lien vers : https://aubay.com/home-aubay/#main_content_aubay"
+    ],
+    [
+      "Nos collaborateurs",
+      "Lien vers : https://aubay.com/home-aubay/#collaborateurs"
+    ],
+    [
+      "Notre expertise",
+      "Lien vers : https://aubay.com/home-aubay/#expertise"
+    ],
+    [
+      "Notre politique RSE",
+      "Lien vers : https://aubay.com/investisseurs/politique-rse/"
+    ],
+    [
+      "Rejoindre Aubay",
+      "Lien vers : https://aubay.com/carriere-accueil/"
+    ],
+    [
+      "Blog",
+      "Lien vers : https://blog.aubay.com/"
+    ],
+    [
+      "Investisseurs",
+      "Lien vers : https://aubay.com/#"
+    ],
+    [
+      "Panorama financier",
+      "Lien vers : https://aubay.com/investisseurs/"
+    ],
+    [
+      "1-Actionnariat",
+      "Lien vers : https://aubay.com/investisseurs/actionnariat/"
+    ],
+    [
+      "2-Agenda",
+      "Lien vers : https://aubay.com/investisseurs/agenda/"
+    ],
+    [
+      "3-Gouvernance",
+      "Lien vers : https://aubay.com/investisseurs/gouvernance/"
+    ],
+    [
+      "4- Politique RSE",
+      "Lien vers : https://aubay.com/investisseurs/politique-rse/"
+    ],
+    [
+      "5-Éthique / Anticorruption",
+      "Lien vers : https://aubay.com/investisseurs/ethique-anticorruption/"
+    ],
+    [
+      "6-Informations financières",
+      "Lien vers : https://aubay.com/investisseurs/informations-financieres/"
+    ],
+    [
+      "7-Assemblée générale",
+      "Lien vers : https://aubay.com/investisseurs/assemblee-generale/"
+    ],
+    [
+      "8-Communiqués financiers",
+      "Lien vers : https://aubay.com/investisseurs/communiques-financiers/"
+    ],
+    [
+      "9-Informations réglementées",
+      "Lien vers : https://aubay.com/investisseurs/informations-reglementees/"
+    ],
+    [
+      "10-Contacts investisseurs & mentions légales",
+      "Lien vers : https://aubay.com/investisseurs/contacts/"
+    ],
+    [
+      "Contacts",
+      "Lien vers : https://aubay.com/home-aubay/#contacts"
+    ],
+    [
+      "sans nom",
+      "Lien vers : https://aubay.com/en/"
+    ],
+    [
+      "REJOIGNEZ-NOUS",
+      "Lien vers : https://aubay.com/carriere-accueil/"
+    ],
+    [
+      "Aubay Blog",
+      "Lien vers : https://blog.aubay.com/"
+    ],
+    [
+      "Responsabilité\nsociétale des entreprises",
+      "Lien vers : https://aubay.com/investisseurs/developpement-durable/"
+    ],
+    [
+      "Investisseurs",
+      "Lien vers : https://aubay.com/investisseurs/"
+    ],
+    [
+      "sans nom",
+      "Lien vers : https://aubay.com/#qui-sommes-nous"
+    ],
+    [
+      "expertise navigation",
+      "Lien vers : https://aubay.com/home-aubay/consulting-digital/"
+    ],
+    [
+      "expertise navigation",
+      "Lien vers : https://aubay.com/home-aubay/digital-experience/"
+    ],
+    [
+      "expertise navigation",
+      "Lien vers : https://aubay.com/home-aubay/automatisation-intelligente/"
+    ],
+    [
+      "expertise navigation",
+      "Lien vers : https://aubay.com/home-aubay/agile/"
+    ],
+    [
+      "expertise navigation",
+      "Lien vers : https://aubay.com/home-aubay/data_analytics/"
+    ],
+    [
+      "expertise navigation",
+      "Lien vers : https://aubay.com/home-aubay/cybersecurite/"
+    ],
+    [
+      "expertise navigation",
+      "Lien vers : https://aubay.com/infrastructure-cloud"
+    ],
+    [
+      "expertise navigation",
+      "Lien vers : https://aubay.com/home-aubay/tests_automatisation/"
+    ],
+    [
+      "DÉCOUVREZ LE PARCOURS D'ALEXANDRA",
+      "Lien vers : https://youtu.be/tjQQPTe-8ck"
+    ],
+    [
+      "DÉCOUVREZ LE PARCOURS DE MARIUS",
+      "Lien vers : https://youtu.be/KBDrRs7j4ec"
+    ],
+    [
+      "DÉCOUVREZ LE PARCOURS DE THOMAS",
+      "Lien vers : https://youtu.be/QYWGaBtrMeU?feature=shared%20"
+    ],
+    [
+      "Nos opportunités",
+      "Lien vers : https://aubay.com/carriere-accueil/#tableau-thematiques"
+    ],
+    [
+      "Image précédente",
+      "Lien vers : https://aubay.com/#"
+    ],
+    [
+      "Image suivante",
+      "Lien vers : https://aubay.com/#"
+    ],
+    [
+      "1",
+      "Lien vers : https://aubay.com/#"
+    ],
+    [
+      "2",
+      "Lien vers : https://aubay.com/#"
+    ],
+    [
+      "3",
+      "Lien vers : https://aubay.com/#"
+    ],
+    [
+      "4",
+      "Lien vers : https://aubay.com/#"
+    ],
+    [
+      "Image précédente",
+      "Lien vers : https://aubay.com/#"
+    ],
+    [
+      "Image suivante",
+      "Lien vers : https://aubay.com/#"
+    ],
+    [
+      "1",
+      "Lien vers : https://aubay.com/#"
+    ],
+    [
+      "2",
+      "Lien vers : https://aubay.com/#"
+    ],
+    [
+      "3",
+      "Lien vers : https://aubay.com/#"
+    ],
+    [
+      "4",
+      "Lien vers : https://aubay.com/#"
+    ],
+    [
+      "Consultez le livret de stage 2025/2026",
+      "Lien vers : https://www.calameo.com/read/005489547f33b4a2e5eef"
+    ],
+    [
+      "sans nom",
+      "Lien vers : https://twitter.com/groupeaubay"
+    ],
+    [
+      "Voir le post",
+      "Lien vers : https://blog.aubay.com/controle-de-gestion-it-dsi-les-enjeux-strategiques-de-202"
+    ],
+    [
+      "Voir la chaine",
+      "Lien vers : https://www.youtube.com/user/aubaytv"
+    ],
+    [
+      "sans nom",
+      "Lien vers : https://www.linkedin.com/company/aubay/mycompany/verification/?viewAsMember=true"
+    ],
+    [
+      "sans nom",
+      "Lien vers : https://fr.linkedin.com/company/aubay"
+    ],
+    [
+      "Voir le post",
+      "Lien vers : https://www.instagram.com/aubayfrance/"
+    ],
+    [
+      "sans nom",
+      "Lien vers : https://www.glassdoor.fr/Avis/Aubay-Avis-E12945.htm"
+    ],
+    [
+      "Voir le post",
+      "Lien vers : https://www.facebook.com/AubayFrance/"
+    ],
+    [
+      "www.aubay.com",
+      "Lien vers : https://aubay.com/"
+    ],
+    [
+      "www.aubay.com",
+      "Lien vers : https://aubay.com/"
+    ],
+    [
+      "www.aubay.es",
+      "Lien vers : https://www.aubay.es/"
+    ],
+    [
+      "www.aubay.pt",
+      "Lien vers : https://www.aubay.pt/"
+    ],
+    [
+      "www.aubay.co.uk",
+      "Lien vers : https://www.aubay.co.uk/"
+    ],
+    [
+      "www.aubay.it",
+      "Lien vers : https://www.aubay.it/"
+    ],
+    [
+      "www.aubay.com",
+      "Lien vers : https://aubay.com/"
+    ],
+    [
+      "REJOIGNEZ-NOUS !",
+      "Lien vers : https://aubay.com/carriere-accueil/"
+    ],
+    [
+      "ces données soient traitées",
+      "Lien vers : https://aubay.com/wp-content/uploads/2025/11/AUTORISATION-UTILISATION-DP_Candida"
+    ],
+    [
+      "Sélectionner un fichier",
+      "—"
+    ],
+    [
+      "Annuler",
+      "—"
+    ],
+    [
+      "sans nom",
+      "Lien vers : https://aubay.com/investisseurs/contacts/#mentions-legales"
+    ],
+    [
+      "sans nom",
+      "Lien vers : https://aubay.com/"
+    ],
+    [
+      "sans nom",
+      "Lien vers : https://aubay.com/aubay-x-0/"
+    ],
+    [
+      "sans nom",
+      "Lien vers : https://blog.aubay.com/"
+    ],
+    [
+      "sans nom",
+      "Lien vers : https://aubay.com/investisseurs/"
+    ],
+    [
+      "sans nom",
+      "Lien vers : https://aubay.com/declaration-accessibilite/"
+    ],
+    [
+      "sans nom",
+      "Lien vers : https://aubay.com/plan-du-site/"
+    ],
+    [
+      "sans nom",
+      "Lien vers : https://aubay.com/#contacts"
+    ],
+    [
+      "sans nom",
+      "Lien vers : mailto:equipecommunication@aubay.com"
+    ],
+    [
+      "Suivez-nous sur Twitter",
+      "Lien vers : https://twitter.com/groupeaubay"
+    ],
+    [
+      "Suivez-nous sur Linkedin",
+      "Lien vers : https://www.linkedin.com/company/aubay"
+    ],
+    [
+      "Suivez-nous sur Youtube",
+      "Lien vers : https://www.youtube.com/user/aubaytv"
+    ],
+    [
+      "Suivez-nous sur Instagram",
+      "Lien vers : https://www.instagram.com/aubayfrance/"
+    ],
+    [
+      "Suivez-nous sur Facebook",
+      "Lien vers : https://www.facebook.com/AubayFrance"
+    ],
+    [
+      "Suivez-nous sur Indeed",
+      "Lien vers : https://fr.indeed.com/cmp/Aubay/reviews"
+    ],
+    [
+      "Suivez-nous sur Glassdoor",
+      "Lien vers : https://www.glassdoor.fr/Pr%C3%A9sentation/Travailler-chez-Aubay-EI_IE12945.16,2"
+    ],
+    [
+      "Accepter les cookies",
+      "—"
+    ],
+    [
+      "Refuser les cookies",
+      "—"
+    ],
+    [
+      "Politique de confidentialité",
+      "—"
+    ],
+    [
+      "Non",
+      "Fermer et refuser les cookies"
+    ]
+  ],
+  "champs": [
+    [
+      "Rechercher …",
+      "Type: search"
+    ],
+    [
+      "nf-field-70",
+      "Type: hidden"
+    ],
+    [
+      "Prénom *",
+      "Type: text (obligatoire)"
+    ],
+    [
+      "Nom *",
+      "Type: text (obligatoire)"
+    ],
+    [
+      "Email *",
+      "Type: email (obligatoire)"
+    ],
+    [
+      "Poste recherché *",
+      "Type: select-one (obligatoire)"
+    ],
+    [
+      "Oui",
+      "Type: radio (obligatoire)"
+    ],
+    [
+      "Non",
+      "Type: radio (obligatoire)"
+    ],
+    [
+      "Oui",
+      "Type: radio (obligatoire)"
+    ],
+    [
+      "C.V. *",
+      "Type: file"
+    ],
+    [
+      "nf-upload-nonce",
+      "Type: hidden"
+    ],
+    [
+      "nf-field-61",
+      "Type: submit"
+    ],
+    [
+      "g-recaptcha-response",
+      "Type: hidden"
+    ],
+    [
+      "",
+      "Type: text"
+    ],
+    [
+      "g-recaptcha-response",
+      "Type: textarea"
+    ]
+  ],
+  "menus": [
+    [
+      "pojo-a11y-toolbar",
+      "Élément de navigation"
+    ],
+    [
+      "Aller au contenu principalContacts",
+      "Élément de navigation"
+    ],
+    [
+      "mainmenu",
+      "Élément de navigation"
+    ],
+    [
+      "mainmenu",
+      "Élément de navigation"
+    ],
+    [
+      "mainmenu",
+      "Élément de navigation"
+    ],
+    [
+      "expertise navigation",
+      "Élément de navigation"
+    ],
+    [
+      "expertise navigation",
+      "Élément de navigation"
+    ],
+    [
+      "expertise navigation",
+      "Élément de navigation"
+    ],
+    [
+      "dsm-menu-container",
+      "Élément de navigation"
+    ]
+  ],
+  "images": [
+    [
+      "Aubay",
+      "Image/icône"
+    ],
+    [
+      "English",
+      "Image/icône"
+    ],
+    [
+      "English",
+      "Image/icône"
+    ],
+    [
+      "Logo Aubay",
+      "Image/icône"
+    ],
+    [
+      "Logo Aubay RSE",
+      "Image/icône"
+    ],
+    [
+      "Page consulting",
+      "Image/icône"
+    ],
+    [
+      "Page Digital Experience",
+      "Image/icône"
+    ],
+    [
+      "Page Automatisation Intelligente",
+      "Image/icône"
+    ],
+    [
+      "Page Agile",
+      "Image/icône"
+    ],
+    [
+      "Services applicatifs",
+      "Image/icône"
+    ],
+    [
+      "Page Data et analytics",
+      "Image/icône"
+    ],
+    [
+      "Page Cybersécurité",
+      "Image/icône"
+    ],
+    [
+      "Page Infrastructure Cloud",
+      "Image/icône"
+    ],
+    [
+      "Page Test et automatisation",
+      "Image/icône"
+    ],
+    [
+      "Logo Happy Trainees 2024",
+      "Image/icône"
+    ],
+    [
+      "Logo Aubay – Anticiper l'innovation",
+      "Image/icône"
+    ],
+    [
+      "Lien Indeed",
+      "Image/icône"
+    ],
+    [
+      "lien Glassdoor",
+      "Image/icône"
+    ]
+  ]
+}
