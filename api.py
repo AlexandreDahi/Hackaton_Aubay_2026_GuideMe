@@ -6,6 +6,7 @@ from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
 from pydantic import BaseModel
 from dotenv import load_dotenv
+from playwright.sync_api import sync_playwright
 
 load_dotenv()
 
@@ -34,13 +35,59 @@ class PageElement(BaseModel):
 
 class AnalyzeRequest(BaseModel):
     user_request: str
-    page_context: list[PageElement]
+    page_url: str | None = None
+    page_context: list[PageElement] | None = None
+
+
+def extract_page_context(url: str):
+    with sync_playwright() as p:
+        browser = p.chromium.launch(headless=True)
+        page = browser.new_page()
+        page.goto(url, wait_until="networkidle")
+
+        elements = page.locator("button, a, input, textarea, select").evaluate_all("""
+        els => els.map((el, index) => {
+            const id = el.id || el.getAttribute("data-guideme-id") || `auto-${index}`;
+            if (!el.id && !el.getAttribute("data-guideme-id")) {
+                el.setAttribute("data-guideme-id", id);
+            }
+
+            return {
+                id: id,
+                role: el.tagName.toLowerCase(),
+                text:
+                    el.innerText ||
+                    el.value ||
+                    el.getAttribute("aria-label") ||
+                    el.getAttribute("placeholder") ||
+                    "",
+                description:
+                    el.getAttribute("title") ||
+                    el.getAttribute("name") ||
+                    ""
+            };
+        })
+        """)
+        print("=== PLAYWRIGHT ELEMENTS ===")
+        print(json.dumps(elements, indent=2, ensure_ascii=False))
+        browser.close()
+        return elements
 
 
 @app.post("/analyze")
 def analyze(request: AnalyzeRequest):
+    if request.page_context:
+        page_context = [e.model_dump() for e in request.page_context]
+    elif request.page_url:
+        page_context = extract_page_context(request.page_url)
+    else:
+        return {
+            "target_id": None,
+            "message": "Aucun contexte de page n'a été fourni."
+        }
+
     prompt = f"""
-Tu es GuideMi , un assistant vocal pour personnes aveugles ou malvoyantes.
+Tu es GuideMe, un assistant vocal pour personnes aveugles ou malvoyantes.
 
 Contexte :
 L'utilisateur navigue sur une page web complexe.
@@ -57,7 +104,7 @@ Demande de l'utilisateur :
 "{request.user_request}"
 
 Éléments disponibles sur la page :
-{json.dumps([e.model_dump() for e in request.page_context], ensure_ascii=False, indent=2)}
+{json.dumps(page_context, ensure_ascii=False, indent=2)}
 
 Règles :
 - Si l'utilisateur dit qu'il a déménagé, il veut probablement modifier son adresse.
@@ -90,10 +137,16 @@ Réponds uniquement en JSON valide, sans markdown :
     result = json.loads(response["body"].read())
     text = result["outputs"][0]["text"].strip()
 
+    print("=== PAGE CONTEXT ===")
+    print(json.dumps(page_context, ensure_ascii=False, indent=2))
+
+    print("=== BEDROCK RAW RESPONSE ===")
+    print(text)
+
     try:
         return json.loads(text)
     except json.JSONDecodeError:
         return {
             "target_id": None,
             "message": text,
-        }
+        }   

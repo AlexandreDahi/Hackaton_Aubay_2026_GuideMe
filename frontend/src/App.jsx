@@ -51,44 +51,6 @@ function App() {
   }
 
   async function handleUserRequest(request) {
-  const pageContext = [
-    {
-      id: "contracts",
-      role: "section",
-      text: "Mes contrats",
-      description: "Consulter les garanties et options"
-    },
-    {
-      id: "refunds",
-      role: "button",
-      text: "Voir mes remboursements",
-      description: "Voir les paiements récents et remboursements en attente"
-    },
-    {
-      id: "attestation",
-      role: "button",
-      text: "Télécharger mon attestation",
-      description: "Récupérer une attestation ou un justificatif"
-    },
-    {
-      id: "personal-info",
-      role: "section",
-      text: "Mes informations personnelles",
-      description: "Contient l'adresse actuelle de l'utilisateur"
-    },
-    {
-      id: "edit-address",
-      role: "button",
-      text: "Modifier",
-      description: "Modifier l'adresse actuelle"
-    },
-    {
-      id: "support",
-      role: "button",
-      text: "Contacter le support",
-      description: "Demander de l'aide à un conseiller"
-    }
-  ];
 
   const response = await fetch("http://localhost:8000/analyze", {
     method: "POST",
@@ -97,11 +59,13 @@ function App() {
     },
     body: JSON.stringify({
       user_request: request,
-      page_context: pageContext,
+      page_url: "http://localhost:5173",
     }),
   });
 
   const data = await response.json();
+
+  console.log(data);
 
   setAssistantMessage(data.message);
   speak(data.message);
