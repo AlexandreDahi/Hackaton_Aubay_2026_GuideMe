@@ -13,6 +13,7 @@ load_dotenv()
 REGION = os.getenv("AWS_REGION", "eu-west-1")
 MODEL_ID = os.getenv("MODEL_ID", "mistral.mistral-large-2402-v1:0")
 
+pending_action = None
 bedrock = boto3.client("bedrock-runtime", region_name=REGION)
 
 app = FastAPI()
@@ -79,9 +80,20 @@ def extract_page_context(url: str):
 
         return cleaned_elements[:50]
 
+def normalize_user_request(value: str) -> str:
+    return (
+        value.lower()
+        .strip()
+        .replace(".", "")
+        .replace(",", "")
+        .replace("!", "")
+        .replace("?", "")
+    )
 
 @app.post("/analyze")
 def analyze(request: AnalyzeRequest):
+    global pending_action
+    normalized_request = normalize_user_request(request.user_request)
     if request.page_context:
         page_context = [element.model_dump() for element in request.page_context]
     elif request.page_url:
@@ -92,7 +104,34 @@ def analyze(request: AnalyzeRequest):
             "requires_confirmation": False,
             "message": "Aucun contexte de page n'a été fourni."
         }
+    confirmation_words = [
+        "oui",
+        "ok",
+        "vas y",
+        "vas-y",
+        "continue",
+        "confirmer",
+        "je confirme",
+        "daccord",
+        "d'accord",
+        "allez",
+    ]
+    print("REQUEST =", request.user_request)
+    print("NORMALIZED =", normalized_request)
+    print("PENDING =", pending_action)
+    if pending_action and any(
+        word in normalized_request
+        for word in confirmation_words
+    ):
+        action = pending_action
+        pending_action = None
 
+        return {
+            "message": "Confirmation reçue. Je vais poursuivre cette action.",
+            "target_id": action,
+            "confirmed": True,
+            "requires_confirmation": False
+        }
     prompt = f"""
 Tu es GuideMe, un assistant vocal pour personnes aveugles ou malvoyantes.
 
@@ -152,7 +191,12 @@ Réponds uniquement en JSON valide, sans markdown, sans texte autour.
     text = result["outputs"][0]["text"].strip()
 
     try:
-        return json.loads(text)
+        response_json = json.loads(text)
+
+        if response_json.get("target_id"):
+            pending_action = response_json["target_id"]
+
+        return response_json
     except json.JSONDecodeError:
         return {
             "target_id": None,
