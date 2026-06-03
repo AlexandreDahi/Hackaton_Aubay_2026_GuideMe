@@ -5,13 +5,6 @@ function App() {
   const [text, setText] = useState("");
   const [assistantMessage, setAssistantMessage] = useState("");
 
-  function normalizeText(value) {
-    return value
-      .toLowerCase()
-      .normalize("NFD")
-      .replace(/[\u0300-\u036f]/g, "");
-  }
-
   function startVoiceRecognition() {
     const SpeechRecognition =
       window.SpeechRecognition || window.webkitSpeechRecognition;
@@ -65,8 +58,6 @@ function App() {
 
   const data = await response.json();
 
-  console.log(data);
-
   setAssistantMessage(data.message);
   speak(data.message);
 }
@@ -82,27 +73,6 @@ function App() {
         <button className="voice-button" onClick={startVoiceRecognition}>
           🎤 Parler
         </button>
-
-        <button onClick={() => handleUserRequest("Je viens de déménager")}>
-          Démo : “Je viens de déménager”
-        </button>
-
-        <button onClick={() => handleUserRequest("Je veux mon attestation")}>
-          Démo : “Je veux mon attestation”
-        </button>
-
-        <button onClick={() => speak("Bonjour, la voix GuideMe fonctionne.")}>
-          🔊 Tester la voix
-        </button>
-
-        <div className="result-box" aria-live="polite">
-          <p>
-            <strong>Texte reconnu :</strong> {text || "Aucune commande"}
-          </p>
-          <p>
-            <strong>GuideMe :</strong> {assistantMessage || "En attente..."}
-          </p>
-        </div>
       </section>
 
       <section className="fake-site" aria-label="Fausse page de mutuelle">

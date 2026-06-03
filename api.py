@@ -47,7 +47,8 @@ def extract_page_context(url: str):
 
         elements = page.locator("button, a, input, textarea, select").evaluate_all("""
         els => els.map((el, index) => {
-            const id = el.id || el.getAttribute("data-guideme-id") || `auto-${index}`;
+            const id = el.getAttribute("data-guideme-id") || el.id || `auto-${index}`;
+
             if (!el.id && !el.getAttribute("data-guideme-id")) {
                 el.setAttribute("data-guideme-id", id);
             }
@@ -68,21 +69,27 @@ def extract_page_context(url: str):
             };
         })
         """)
-        print("=== PLAYWRIGHT ELEMENTS ===")
-        print(json.dumps(elements, indent=2, ensure_ascii=False))
+
         browser.close()
-        return elements
+
+        cleaned_elements = [
+            element for element in elements
+            if element.get("text", "").strip() or element.get("description", "").strip()
+        ]
+
+        return cleaned_elements[:50]
 
 
 @app.post("/analyze")
 def analyze(request: AnalyzeRequest):
     if request.page_context:
-        page_context = [e.model_dump() for e in request.page_context]
+        page_context = [element.model_dump() for element in request.page_context]
     elif request.page_url:
         page_context = extract_page_context(request.page_url)
     else:
         return {
             "target_id": None,
+            "requires_confirmation": False,
             "message": "Aucun contexte de page n'a été fourni."
         }
 
@@ -92,19 +99,14 @@ Tu es GuideMe, un assistant vocal pour personnes aveugles ou malvoyantes.
 Contexte :
 L'utilisateur navigue sur une page web complexe.
 Il ne voit pas l'écran.
-Tu dois l'aider à comprendre où aller.
+Tu dois l'aider à atteindre son objectif sans lui imposer de parcourir toute l'interface.
 
 Ton rôle :
 - comprendre l'intention réelle de l'utilisateur, même si sa phrase ne correspond pas exactement aux textes de la page ;
 - choisir l'élément de page le plus utile ;
-- expliquer oralement pourquoi cet élément est pertinent ;
+- expliquer oralement pourquoi cet élément semble pertinent ;
+- demander une confirmation avant toute action ;
 - rester court, clair et rassurant.
-
-Réponds uniquement et obligatoirement en JSON dans le format suivant, sans markdown :
-{{
-"message": "réponse courte à lire à voix haute",
-  "target_id": "id de l'élément le plus pertinent ou null"
-}}
 
 Demande de l'utilisateur :
 "{request.user_request}"
@@ -112,15 +114,25 @@ Demande de l'utilisateur :
 Éléments disponibles sur la page :
 {json.dumps(page_context, ensure_ascii=False, indent=2)}
 
-Règles :
+Règles de décision :
 - Si l'utilisateur dit qu'il a déménagé, il veut probablement modifier son adresse.
 - Si l'utilisateur parle d'attestation, de justificatif ou de document, il veut probablement accéder aux documents.
 - Si l'utilisateur parle de remboursement, il veut probablement consulter ses remboursements.
+- Si aucun élément pertinent n'est trouvé, target_id doit valoir null.
 - Ne dis jamais que tu as "surligné" un élément.
 - Ne parle pas d'interface visuelle.
 - Réponds comme si tu parlais à une personne aveugle.
+- Ne confirme jamais que l'action a été effectuée.
+- Demande toujours le consentement avant d'ouvrir, cliquer, valider ou modifier quelque chose.
 
+Format de réponse obligatoire :
+Réponds uniquement en JSON valide, sans markdown, sans texte autour.
 
+{{
+  "message": "phrase courte à lire à voix haute, qui explique l'élément trouvé et demande confirmation",
+  "target_id": "id de l'élément le plus pertinent ou null",
+  "requires_confirmation": true
+}}
 """
 
     body = {
@@ -139,16 +151,11 @@ Règles :
     result = json.loads(response["body"].read())
     text = result["outputs"][0]["text"].strip()
 
-    print("=== PAGE CONTEXT ===")
-    print(json.dumps(page_context, ensure_ascii=False, indent=2))
-
-    print("=== BEDROCK RAW RESPONSE ===")
-    print(text)
-
     try:
         return json.loads(text)
     except json.JSONDecodeError:
         return {
             "target_id": None,
+            "requires_confirmation": False,
             "message": text,
-        }   
+        }
