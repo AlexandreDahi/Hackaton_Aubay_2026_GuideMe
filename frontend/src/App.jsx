@@ -98,6 +98,7 @@ function App() {
             <button>Mon espace</button>
             <button>Aide</button>
             <button>Paramètres</button>
+            <input type="text" placeholder="Rechercher..." /> 
           </nav>
         </header>
 

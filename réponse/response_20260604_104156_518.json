@@ -1,0 +1,9 @@
+{
+  "timestamp": "2026-06-04T10:41:56.519048",
+  "user_request": "Je veux rechercher mon contrat.",
+  "bedrock_response": {
+    "message": "Je vous suggère d'utiliser le champ de recherche pour trouver votre contrat. Voulez-vous que je vous aide à le remplir ?",
+    "cas": "1",
+    "target_id": "auto-6"
+  }
+}

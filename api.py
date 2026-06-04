@@ -7,6 +7,7 @@ from fastapi.middleware.cors import CORSMiddleware
 from pydantic import BaseModel
 from dotenv import load_dotenv
 from playwright.sync_api import sync_playwright
+from datetime import datetime
 
 load_dotenv()
 
@@ -39,6 +40,28 @@ class AnalyzeRequest(BaseModel):
     page_url: str | None = None
     page_context: list[PageElement] | None = None
 
+def save_response(user_request: str, bedrock_response: dict):
+    """Sauvegarde la question et la réponse de bedrock dans un fichier JSON"""
+    # Créer le répertoire 'réponse' s'il n'existe pas
+    response_dir = "réponse"
+    os.makedirs(response_dir, exist_ok=True)
+   
+    # Créer un timestamp pour le nom du fichier
+    timestamp = datetime.now().strftime("%Y%m%d_%H%M%S_%f")[:-3]  # avec millisecondes
+    filename = os.path.join(response_dir, f"response_{timestamp}.json")
+   
+    # Créer le dictionnaire avec la question et la réponse
+    data = {
+        "timestamp": datetime.now().isoformat(),
+        "user_request": user_request,
+        "bedrock_response": bedrock_response
+    }
+   
+    # Sauvegarder le JSON
+    with open(filename, 'w', encoding='utf-8') as f:
+        json.dump(data, f, ensure_ascii=False, indent=2)
+   
+    print(f"Response saved to {filename}")
 
 def extract_page_context(url: str):
     with sync_playwright() as p:
@@ -164,14 +187,26 @@ Règles de décision :
 - Ne confirme jamais que l'action a été effectuée.
 - Demande toujours le consentement avant d'ouvrir, cliquer, valider ou modifier quelque chose.
 
-Format de réponse obligatoire :
+Format de réponse obligatoire attendu :
+Choisi en envoyent le Json du cas 1 ou du cas 2,
+Cas 1 l'utilisateur veut remplir un champ
+Cas 2 l'utilisateur veut changer de page
 Réponds uniquement en JSON valide, sans markdown, sans texte autour.
-
+ 
+Cas 1
 {{
-  "message": "phrase courte à lire à voix haute, qui explique l'élément trouvé et demande confirmation",
-  "target_id": "id de l'élément le plus pertinent ou null",
-  "requires_confirmation": true
+  "message": "phrase courte à lire à voix haute, qui explique ce que tu veux faire",
+  "cas": "1"
+  "target_id": "id du champ le plus pertinent à remplir ou null",
 }}
+ 
+cas 2
+{{
+  "message": "phrase courte à lire à voix haute, qui explique ce que tu veux faire",
+  "cas": "2"
+  "target_id": "id du bouton le plus pertinent à cliquer ou null",
+}}
+ 
 """
 
     body = {
@@ -192,14 +227,20 @@ Réponds uniquement en JSON valide, sans markdown, sans texte autour.
 
     try:
         response_json = json.loads(text)
-
+ 
         if response_json.get("target_id"):
             pending_action = response_json["target_id"]
-
+       
+        # Sauvegarder la question et la réponse
+        save_response(request.user_request, response_json)
+ 
         return response_json
     except json.JSONDecodeError:
-        return {
+        error_response = {
             "target_id": None,
             "requires_confirmation": False,
             "message": text,
         }
+        # Sauvegarder même en cas d'erreur JSON
+        save_response(request.user_request, error_response)
+        return error_response

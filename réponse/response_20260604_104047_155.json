@@ -1,0 +1,9 @@
+{
+  "timestamp": "2026-06-04T10:40:47.155526",
+  "user_request": "Chez mon contrat ?",
+  "bedrock_response": {
+    "message": "Vous voulez peut-être consulter les détails de votre contrat. Je vous propose de cliquer sur le bouton 'Mon espace'. Est-ce que cela vous convient ?",
+    "cas": "2",
+    "target_id": "auto-3"
+  }
+}

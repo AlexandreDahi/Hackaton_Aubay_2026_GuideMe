@@ -1,0 +1,9 @@
+{
+  "timestamp": "2026-06-04T10:38:00.070898",
+  "user_request": "Je veux voir mes contrats.",
+  "bedrock_response": {
+    "message": "Je vous suggère de cliquer sur le bouton 'Mon espace'. C'est là que vous pourriez trouver vos contrats.",
+    "cas": "2",
+    "target_id": "auto-3"
+  }
+}
