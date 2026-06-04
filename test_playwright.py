@@ -14,59 +14,106 @@ async def analyser_page(url):
         await page.wait_for_timeout(3000)  # Attend 3s que le JS se charge
 
         resultat = await page.evaluate("""() => {
+            function normalize(text) {
+                if (!text) return "";
+                return text
+                    .toString()
+                    .replace(/\s+/g, " ")
+                    .replace(/[…\.]{2,}$/u, "")
+                    .trim();
+            }
+
+            function isVisible(el) {
+                const style = window.getComputedStyle(el);
+                const rect = el.getBoundingClientRect();
+                return style.visibility !== "hidden" && style.display !== "none" && rect.width > 0 && rect.height > 0;
+            }
+
             function getLabel(el) {
                 if (el.id) {
                     const lbl = document.querySelector(`label[for="${el.id}"]`);
-                    if (lbl) return lbl.innerText.trim();
+                    if (lbl) return normalize(lbl.innerText);
                 }
-                if (el.getAttribute('aria-label')) return el.getAttribute('aria-label');
-                if (el.placeholder) return el.placeholder;
-                if (el.title) return el.title;
-                if (el.innerText && el.innerText.trim().length < 80) return el.innerText.trim();
+                if (el.getAttribute('aria-label')) return normalize(el.getAttribute('aria-label'));
+                if (el.placeholder) return normalize(el.placeholder);
+                if (el.title) return normalize(el.title);
+                if (el.innerText) {
+                    const text = normalize(el.innerText);
+                    if (text.length > 0 && text.length < 80) return text;
+                }
                 const parent = el.closest('[aria-label]');
-                if (parent) return parent.getAttribute('aria-label');
-                return el.name || el.id || el.className.split(' ')[0] || "sans nom";
+                if (parent) return normalize(parent.getAttribute('aria-label'));
+                return normalize(el.name || el.id || el.getAttribute('alt') || el.getAttribute('aria-describedby') || "");
             }
 
             function getDescription(el) {
                 const ariaDesc = el.getAttribute('aria-describedby');
                 if (ariaDesc) {
                     const descEl = document.getElementById(ariaDesc);
-                    if (descEl) return descEl.innerText.trim();
+                    if (descEl) return normalize(descEl.innerText);
                 }
-                return el.title || el.getAttribute('data-tooltip') || "—";
+                return normalize(el.title || el.getAttribute('data-tooltip') || "");
             }
 
-            // BOUTONS & LIENS
+            function addUnique(list, item) {
+                if (!item.label || item.label.length === 0) return;
+                if (item.label.toLowerCase() === "sans nom") return;
+                const exists = list.some(i => i.label === item.label && i.type === item.type);
+                if (!exists) list.push(item);
+            }
+
             const boutons = [];
-            document.querySelectorAll("button, [role='button'], a[href]").forEach(el => {
+            document.querySelectorAll("button, [role='button'], a[href], input[type='submit'], input[type='button']").forEach(el => {
+                if (!isVisible(el)) return;
                 const label = getLabel(el);
+                if (!label) return;
                 const href = el.href || "";
-                const desc = href ? `Lien vers : ${href.substring(0, 80)}` : getDescription(el);
-                if (label) boutons.push([label.substring(0, 60), desc.substring(0, 100)]);
+                if (href && href.startsWith("javascript:")) return;
+                const desc = href ? `Lien vers : ${href.substring(0, 100)}` : getDescription(el);
+                addUnique(boutons, {
+                    label: label.substring(0, 80),
+                    type: href ? "lien" : "bouton",
+                    description: desc || "Action interactive"
+                });
             });
 
-            // CHAMPS REMPLISSABLES
             const champs = [];
-            document.querySelectorAll("input, textarea, select, [contenteditable='true']").forEach(el => {
+            document.querySelectorAll("input:not([type=hidden]):not([disabled]), textarea:not([disabled]), select:not([disabled]), [contenteditable='true']").forEach(el => {
+                if (!isVisible(el)) return;
                 const label = getLabel(el);
-                const type = el.type || el.tagName.toLowerCase();
-                const desc = `Type: ${type}` + (el.required ? " (obligatoire)" : "");
-                champs.push([label.substring(0, 60), desc]);
+                if (!label) return;
+                const type = el.tagName.toLowerCase() === 'input' ? (el.type || 'text') : el.tagName.toLowerCase();
+                addUnique(champs, {
+                    label: label.substring(0, 80),
+                    type: `champ ${type}`,
+                    description: `Type: ${type}${el.required ? ' (obligatoire)' : ''}`
+                });
             });
 
-            // MENUS / NAVIGATION
             const menus = [];
-            document.querySelectorAll("nav, [role='navigation'], [role='menu'], [role='menuitem']").forEach(el => {
+            document.querySelectorAll("nav a, [role='navigation'] a, [role='menuitem']").forEach(el => {
+                if (!isVisible(el)) return;
                 const label = getLabel(el);
-                if (label) menus.push([label.substring(0, 60), "Élément de navigation"]);
+                if (!label) return;
+                const href = el.href || "";
+                if (href && href.startsWith("javascript:")) return;
+                addUnique(menus, {
+                    label: label.substring(0, 80),
+                    type: "menu",
+                    description: href ? `Navigation vers : ${href.substring(0, 100)}` : "Élément de navigation"
+                });
             });
 
-            // IMAGES / ICONES interactives
             const images = [];
-            document.querySelectorAll("img[alt], svg[aria-label]").forEach(el => {
-                const alt = el.alt || el.getAttribute('aria-label') || "";
-                if (alt) images.push([alt.substring(0, 60), "Image/icône"]);
+            document.querySelectorAll("img[alt], svg[aria-label], [role='img'][aria-label]").forEach(el => {
+                if (!isVisible(el)) return;
+                const alt = normalize(el.alt || el.getAttribute('aria-label'));
+                if (!alt) return;
+                addUnique(images, {
+                    label: alt.substring(0, 80),
+                    type: "image",
+                    description: "Image / icône interactive"
+                });
             });
 
             return { boutons, champs, menus, images };
